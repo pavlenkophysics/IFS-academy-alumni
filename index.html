@@ -10,18 +10,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f5f0f8;
-      --bg-alt: #faf7fc;
-      --bg-warm: #f0eaf5;
-      --bg-hero: #e8dff0;
-      --text: #2a2030;
+      --bg: #faf9fc;
+      --bg-alt: #fff;
+      --bg-warm: #f8f6fa;
+      --text: #2d2a33;
       --text-soft: #fffef8;
-      --muted: #6b5f78;
-      --accent: #a07cc0;
-      --accent-hover: #8d68b0;
-      --accent-soft: #d4c4e2;
-      --accent-light: #ebe0f4;
-      --border: #e0d8e8;
+      --muted: #5c5666;
+      --accent: #9378a8;
+      --accent-hover: #7d6392;
+      --accent-soft: #e2d9eb;
+      --accent-light: #f3eef8;
+      --accent-pink: #f5e8ef;
+      --accent-warm: #faf5eb;
+      --border: #e8e4ee;
       --reveal-duration: 0.65s;
     }
 
@@ -63,7 +64,7 @@
     /* ——— HERO ——— */
     .hero {
       padding: 5rem 0 4rem;
-      background: linear-gradient(170deg, #e8dff0 0%, #f0e5f5 40%, #f5f0f8 100%);
+      background: linear-gradient(165deg, #fff 0%, var(--accent-pink) 50%, var(--accent-light) 100%);
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -76,7 +77,7 @@
       transform: translateX(-50%);
       width: 120%;
       height: 120%;
-      background: radial-gradient(ellipse at center, rgba(180,150,210,0.15) 0%, rgba(220,200,240,0.08) 50%, transparent 70%);
+      background: radial-gradient(ellipse at center, rgba(147,120,168,0.08) 0%, rgba(245,232,239,0.05) 50%, transparent 70%);
       pointer-events: none;
     }
     .hero .container { position: relative; z-index: 1; }
@@ -89,8 +90,9 @@
       margin: 0 auto;
       text-align: left;
       padding: 1.5rem 1.75rem;
-      background: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.7);
       border-radius: 12px;
+      border: 1px solid var(--border);
     }
     .hero-block p {
       color: var(--text);
@@ -102,13 +104,13 @@
       margin-bottom: 0;
     }
     .hero-block strong {
-      color: var(--accent-hover);
+      color: var(--accent);
     }
 
     /* ——— КУРСЫ (аккордеон) ——— */
     .section-courses {
       padding: 3.5rem 0 4rem;
-      background: var(--bg-alt);
+      background: var(--accent-warm);
       border-bottom: 1px solid var(--border);
     }
     .section-courses h2 {
@@ -136,7 +138,7 @@
       transition: box-shadow 0.2s;
     }
     .course-card:hover {
-      box-shadow: 0 2px 12px rgba(120,90,160,0.07);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
     }
 
     .course-header {
@@ -147,10 +149,11 @@
       padding: 1rem 1.25rem;
       cursor: pointer;
       list-style: none;
-      background: var(--accent-light);
+      background: rgba(255,255,255,0.8);
+      border-left: 3px solid var(--accent);
       transition: background 0.2s;
     }
-    .course-header:hover { background: var(--accent-soft); }
+    .course-header:hover { background: var(--accent-light); }
     .course-header::-webkit-details-marker,
     .course-header::marker { display: none; }
 
@@ -231,7 +234,7 @@
       padding: 1rem 1.25rem;
       background: var(--accent-light);
       border-radius: 8px;
-      border-left: 4px solid var(--accent-soft);
+      border-left: 4px solid var(--accent);
       font-size: 0.93rem;
     }
     .course-what-it-means strong {
@@ -303,7 +306,7 @@
       transition: box-shadow 0.25s, transform 0.25s;
     }
     .grad-card:hover {
-      box-shadow: 0 6px 24px rgba(120,90,160,0.1);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.06);
       transform: translateY(-3px);
     }
 
@@ -350,12 +353,12 @@
       color: #fff;
     }
     .course-badge--m2 {
-      background: var(--text);
-      color: var(--accent-soft);
+      background: var(--accent-hover);
+      color: #fff;
     }
     .course-badge--ms {
-      background: var(--accent-light);
-      color: var(--text);
+      background: var(--accent-soft);
+      color: var(--accent-hover);
     }
 
     .grad-modality {
@@ -373,7 +376,7 @@
       margin-bottom: 0.75rem;
     }
     .grad-status--accepting {
-      color: #6a9e58;
+      color: #5a8a4a;
     }
     .grad-status--not-accepting {
       color: var(--muted);
@@ -385,8 +388,8 @@
       flex-shrink: 0;
     }
     .grad-status--accepting .grad-status-dot {
-      background: #6a9e58;
-      box-shadow: 0 0 0 3px rgba(106,158,88,0.18);
+      background: #7aad68;
+      box-shadow: 0 0 0 3px rgba(122,173,104,0.2);
     }
     .grad-status--not-accepting .grad-status-dot {
       background: var(--border);
@@ -690,7 +693,7 @@
                   Финальная практика + фидбек
                 </span>
               </div>
-              <p>Отдельный курс, посвящённый углублённой работе с IFS. Участники проходят весь материал модулей заново на более глубоком уровне, с акцентом на практику, интеграцию и развитие навыка.</p>
+              <p>Отдельный курс, который даёт весь спектр IFS — от азов до тонкостей: контакт с Self, работа с частями и состоянием, углублённая практика.</p>
               <ul class="course-topics">
                 <li>IFS Model — 3 Paradigms</li>
                 <li>Parts Are People</li>
