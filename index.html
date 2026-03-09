@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Выпускники — IFS Academy</title>
+  <meta name="description" content="Выпускники IFS Academy: прошедшие обучение, практику и супервизию по Internal Family Systems.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f0f8;
+      --bg-alt: #faf7fc;
+      --bg-warm: #f0eaf5;
+      --bg-hero: #e8dff0;
+      --text: #2a2030;
+      --text-soft: #fffef8;
+      --muted: #6b5f78;
+      --accent: #a07cc0;
+      --accent-hover: #8d68b0;
+      --accent-soft: #d4c4e2;
+      --accent-light: #ebe0f4;
+      --border: #e0d8e8;
+      --reveal-duration: 0.65s;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 0 0 1rem; }
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin: 0 0 1.5rem;
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .container--narrow {
+      max-width: 640px;
+    }
+
+    /* ——— HERO ——— */
+    .hero {
+      padding: 5rem 0 4rem;
+      background: linear-gradient(170deg, #e8dff0 0%, #f0e5f5 40%, #f5f0f8 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120%;
+      height: 120%;
+      background: radial-gradient(ellipse at center, rgba(180,150,210,0.15) 0%, rgba(220,200,240,0.08) 50%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero .container { position: relative; z-index: 1; }
+    .hero h1 {
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .hero-block {
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: left;
+      padding: 1.5rem 1.75rem;
+      background: rgba(255,255,255,0.5);
+      border-radius: 12px;
+    }
+    .hero-block p {
+      color: var(--text);
+      margin: 0 0 0.75rem;
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+    .hero-block p:last-child {
+      margin-bottom: 0;
+    }
+    .hero-block strong {
+      color: var(--accent-hover);
+    }
+
+    /* ——— КУРСЫ (аккордеон) ——— */
+    .section-courses {
+      padding: 3.5rem 0 4rem;
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border);
+    }
+    .section-courses h2 {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .section-courses .courses-sub {
+      text-align: center;
+      color: var(--muted);
+      margin: 0 0 2rem;
+      font-size: 0.95rem;
+    }
+
+    .courses {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .course-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      transition: box-shadow 0.2s;
+    }
+    .course-card:hover {
+      box-shadow: 0 2px 12px rgba(120,90,160,0.07);
+    }
+
+    .course-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      list-style: none;
+      background: var(--accent-light);
+      transition: background 0.2s;
+    }
+    .course-header:hover { background: var(--accent-soft); }
+    .course-header::-webkit-details-marker,
+    .course-header::marker { display: none; }
+
+    .course-header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .course-header-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .course-toggle-icon {
+      flex-shrink: 0;
+      width: 0.8rem;
+      height: 0.8rem;
+      border-right: 2px solid var(--muted);
+      border-bottom: 2px solid var(--muted);
+      transform: rotate(45deg);
+      margin-top: -0.2rem;
+      transition: transform 0.25s;
+    }
+    .course-card[open] .course-toggle-icon {
+      transform: rotate(-135deg);
+      margin-top: 0.3rem;
+    }
+
+    .course-body {
+      padding: 1.25rem 1.25rem 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .course-body p { margin: 0 0 0.75rem; }
+    .course-body p:last-child { margin-bottom: 0; }
+
+    .course-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1.25rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    .course-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--muted);
+    }
+    .course-meta-item svg {
+      width: 1rem;
+      height: 1rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .course-meta-item strong { color: var(--text); }
+
+    .course-topics {
+      margin: 1rem 0 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .course-topics li {
+      padding: 0.2rem 0.65rem;
+      background: var(--accent-light);
+      border-radius: 6px;
+      font-size: 0.83rem;
+      color: var(--text);
+    }
+
+    .course-what-it-means {
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      background: var(--accent-light);
+      border-radius: 8px;
+      border-left: 4px solid var(--accent-soft);
+      font-size: 0.93rem;
+    }
+    .course-what-it-means strong {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-size: 0.82rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* ——— СЕКЦИЯ ВЫПУСКНИКОВ ——— */
+    .section-graduates {
+      padding: 4rem 0 5rem;
+    }
+
+    /* ——— ФИЛЬТРЫ ——— */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+      justify-content: center;
+    }
+    .filter-btn {
+      padding: 0.45rem 1.1rem;
+      border: 2px solid var(--border);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--text);
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ——— КАРТОЧКИ ——— */
+    .graduates-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 560px) {
+      .graduates-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (min-width: 860px) {
+      .graduates-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    .grad-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .grad-card:hover {
+      box-shadow: 0 6px 24px rgba(120,90,160,0.1);
+      transform: translateY(-3px);
+    }
+
+    .grad-photo {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      background: var(--bg-warm);
+    }
+
+    .grad-info {
+      padding: 1.25rem 1.25rem 1.5rem;
+    }
+
+    .grad-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 0 0 0.6rem;
+      color: var(--text);
+    }
+
+    .grad-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .course-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .course-badge--m1 {
+      background: var(--accent);
+      color: #fff;
+    }
+    .course-badge--m2 {
+      background: var(--text);
+      color: var(--accent-soft);
+    }
+    .course-badge--ms {
+      background: var(--accent-light);
+      color: var(--text);
+    }
+
+    .grad-modality {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 0 0 0.5rem;
+    }
+
+    .grad-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .grad-status--accepting {
+      color: #6a9e58;
+    }
+    .grad-status--not-accepting {
+      color: var(--muted);
+    }
+    .grad-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .grad-status--accepting .grad-status-dot {
+      background: #6a9e58;
+      box-shadow: 0 0 0 3px rgba(106,158,88,0.18);
+    }
+    .grad-status--not-accepting .grad-status-dot {
+      background: var(--border);
+    }
+
+    .grad-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .grad-link:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+    .grad-link svg {
+      width: 0.85rem;
+      height: 0.85rem;
+    }
+
+    /* ——— REVEAL ——— */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity var(--reveal-duration) ease-out, transform var(--reveal-duration) ease-out;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ——— FOOTER ——— */
+    footer {
+      padding: 2.5rem 0 3.5rem;
+      border-top: 3px solid var(--accent-soft);
+      font-size: 0.9rem;
+      color: var(--muted);
+      background: var(--bg-alt);
+      text-align: center;
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    footer a:hover { text-decoration: underline; }
+    footer p { margin: 0 0 0.5rem; }
+  </style>
+</head>
+<body>
+  <main>
+
+    <header class="hero reveal">
+      <div class="container container--narrow">
+        <h1>Выпускники IFS Academy</h1>
+        <div class="hero-block">
+          <p><strong>IFS Academy</strong> — школа работы с внутренними частями и состоянием Self по методу Internal Family Systems (IFS). Программы ведёт <strong>Гэтри Сайен</strong> — ученик создателя IFS Ричарда Шварца, один из ведущих преподавателей Evolving IFS, 15+ лет преподавания, 10 000+ часов с клиентами.</p>
+          <p>В академии несколько курсов разного уровня. На этой странице вы можете познакомиться с выпускниками наших программ, узнать, какие курсы они прошли, и при желании связаться с ними для работы.</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="section-graduates reveal" id="graduates">
+      <div class="container">
+
+        <div class="filters">
+          <button class="filter-btn active" data-filter="all">Все</button>
+          <button class="filter-btn" data-filter="m1">Модуль 1</button>
+          <button class="filter-btn" data-filter="m2">Модуль 2</button>
+          <button class="filter-btn" data-filter="ms">More Self</button>
+          <button class="filter-btn" data-filter="accepting">Принимает клиентов</button>
+        </div>
+
+        <div class="graduates-grid">
+
+          <div class="grad-card" data-courses="m1 m2" data-accepting="yes">
+            <img class="grad-photo" src="images/placeholder-grad.jpg" alt="Мария Иванова" width="300" height="300">
+            <div class="grad-info">
+              <h3 class="grad-name">Мария Иванова</h3>
+              <div class="grad-badges">
+                <span class="course-badge course-badge--m1">Модуль 1</span>
+                <span class="course-badge course-badge--m2">Модуль 2</span>
+              </div>
+              <p class="grad-modality">IFS, телесно-ориентированная терапия</p>
+              <div class="grad-status grad-status--accepting">
+                <span class="grad-status-dot"></span>
+                Принимает клиентов
+              </div>
+              <a href="https://example.com" class="grad-link" target="_blank" rel="noopener">
+                Сайт
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="grad-card" data-courses="m1 ms" data-accepting="yes">
+            <img class="grad-photo" src="images/placeholder-grad.jpg" alt="Анна Петрова" width="300" height="300">
+            <div class="grad-info">
+              <h3 class="grad-name">Анна Петрова</h3>
+              <div class="grad-badges">
+                <span class="course-badge course-badge--m1">Модуль 1</span>
+                <span class="course-badge course-badge--ms">More Self</span>
+              </div>
+              <p class="grad-modality">IFS, коучинг</p>
+              <div class="grad-status grad-status--accepting">
+                <span class="grad-status-dot"></span>
+                Принимает клиентов
+              </div>
+              <a href="https://example.com" class="grad-link" target="_blank" rel="noopener">
+                Сайт
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="grad-card" data-courses="m1" data-accepting="no">
+            <img class="grad-photo" src="images/placeholder-grad.jpg" alt="Дмитрий Сидоров" width="300" height="300">
+            <div class="grad-info">
+              <h3 class="grad-name">Дмитрий Сидоров</h3>
+              <div class="grad-badges">
+                <span class="course-badge course-badge--m1">Модуль 1</span>
+              </div>
+              <p class="grad-modality">IFS, психологическое консультирование</p>
+              <div class="grad-status grad-status--not-accepting">
+                <span class="grad-status-dot"></span>
+                Не принимает клиентов
+              </div>
+            </div>
+          </div>
+
+          <div class="grad-card" data-courses="m1 m2 ms" data-accepting="yes">
+            <img class="grad-photo" src="images/placeholder-grad.jpg" alt="Елена Козлова" width="300" height="300">
+            <div class="grad-info">
+              <h3 class="grad-name">Елена Козлова</h3>
+              <div class="grad-badges">
+                <span class="course-badge course-badge--m1">Модуль 1</span>
+                <span class="course-badge course-badge--m2">Модуль 2</span>
+                <span class="course-badge course-badge--ms">More Self</span>
+              </div>
+              <p class="grad-modality">IFS, гештальт-терапия</p>
+              <div class="grad-status grad-status--accepting">
+                <span class="grad-status-dot"></span>
+                Принимает клиентов
+              </div>
+              <a href="https://example.com" class="grad-link" target="_blank" rel="noopener">
+                Сайт
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="grad-card" data-courses="ms" data-accepting="yes">
+            <img class="grad-photo" src="images/placeholder-grad.jpg" alt="Ольга Смирнова" width="300" height="300">
+            <div class="grad-info">
+              <h3 class="grad-name">Ольга Смирнова</h3>
+              <div class="grad-badges">
+                <span class="course-badge course-badge--ms">More Self</span>
+              </div>
+              <p class="grad-modality">IFS, mindfulness</p>
+              <div class="grad-status grad-status--accepting">
+                <span class="grad-status-dot"></span>
+                Принимает клиентов
+              </div>
+              <a href="https://example.com" class="grad-link" target="_blank" rel="noopener">
+                Сайт
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="grad-card" data-courses="m1 m2" data-accepting="no">
+            <img class="grad-photo" src="images/placeholder-grad.jpg" alt="Игорь Волков" width="300" height="300">
+            <div class="grad-info">
+              <h3 class="grad-name">Игорь Волков</h3>
+              <div class="grad-badges">
+                <span class="course-badge course-badge--m1">Модуль 1</span>
+                <span class="course-badge course-badge--m2">Модуль 2</span>
+              </div>
+              <p class="grad-modality">IFS, КПТ</p>
+              <div class="grad-status grad-status--not-accepting">
+                <span class="grad-status-dot"></span>
+                Не принимает клиентов
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section-courses reveal" id="courses">
+      <div class="container">
+        <h2>Подробнее о курсах</h2>
+        <p class="courses-sub">Нажмите на курс, чтобы узнать о содержании и критериях выпуска.</p>
+
+        <div class="courses">
+
+          <details class="course-card">
+            <summary class="course-header">
+              <div class="course-header-left">
+                <span class="course-badge course-badge--m1">Модуль 1</span>
+                <span class="course-header-title">Основы IFS и работа с частями</span>
+              </div>
+              <span class="course-toggle-icon" aria-hidden="true"></span>
+            </summary>
+            <div class="course-body">
+              <div class="course-meta">
+                <span class="course-meta-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg>
+                  <strong>12 недель</strong>, ~18 ч теории с Гэтри
+                </span>
+                <span class="course-meta-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+                  <strong>~24 ч</strong> практики в тройках
+                </span>
+                <span class="course-meta-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                  Финальная сессия + фидбек
+                </span>
+              </div>
+              <p>Фундаментальный курс, закладывающий основу работы с внутренней системой в парадигме IFS. Участники осваивают ключевые концепции, учатся распознавать части и выстраивать с ними контакт из состояния Self.</p>
+              <ul class="course-topics">
+                <li>Parts Are People</li>
+                <li>Self</li>
+                <li>Six F's</li>
+                <li>BeFriending</li>
+                <li>Two Methods</li>
+                <li>Managers</li>
+                <li>Firefighters</li>
+                <li>Exiles</li>
+                <li>Three Messages for Protectors</li>
+                <li>IFS Protocol</li>
+                <li>Safety</li>
+              </ul>
+              <div class="course-what-it-means">
+                <strong>Что значит «прошёл Модуль 1»</strong>
+                12 недель обучения с Гэтри Сайеном (1,5 ч/нед), ~24 часа практики в тройках (~2 ч/нед), финальная полная сессия с реальным клиентом и развёрнутый письменный фидбек от опытного IFS-терапевта. Выпускник знаком с основами метода и имеет начальный практический опыт.
+              </div>
+            </div>
+          </details>
+
+          <details class="course-card">
+            <summary class="course-header">
+              <div class="course-header-left">
+                <span class="course-badge course-badge--m2">Модуль 2</span>
+                <span class="course-header-title">Углублённая практика IFS</span>
+              </div>
+              <span class="course-toggle-icon" aria-hidden="true"></span>
+            </summary>
+            <div class="course-body">
+              <div class="course-meta">
+                <span class="course-meta-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg>
+                  <strong>12 недель</strong>, ~18 ч теории с Гэтри
+                </span>
+                <span class="course-meta-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+                  <strong>~24 ч</strong> практики в тройках
+                </span>
+                <span class="course-meta-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                  Финальная сессия + фидбек
+                </span>
+              </div>
+              <p>Продвинутый курс для тех, кто уже владеет основами. Фокус на углублении практики, работе со сложными внутренними процессами и развитии уверенности в ведении сессий.</p>
+              <ul class="course-topics">
+                <li>Polarisation</li>
+                <li>Importance of Continuity</li>
+                <li>Power of Going Inside</li>
+                <li>Self-like Parts</li>
+                <li>Parts of the Practitioner</li>
+                <li>Addressing Protector Fears</li>
+              </ul>
+              <div class="course-what-it-means">
+                <strong>Что значит «прошёл Модуль 2»</strong>
+                12 недель обучения с Гэтри Сайеном (1,5 ч/нед), ~24 часа практики в тройках (~2 ч/нед), финальная сессия с клиентом и развёрнутый фидбек. Выпускник имеет углублённое понимание метода и практический опыт работы со сложными процессами.
+              </div>
+            </div>
+          </details>
+
+          <details class="course-card">
+            <summary class="course-header">
+              <div class="course-header-left">
+                <span class="course-badge course-badge--ms">More Self</span>
+                <span class="course-header-title">Навыки Self и состояние</span>
+              </div>
+              <span class="course-toggle-icon" aria-hidden="true"></span>
+            </summary>
+            <div class="course-body">
+              <div class="course-meta">
+                <span class="course-meta-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg>
+                  <strong>19 встреч</strong> с Гэтри (~7 месяцев)
+                </span>
+                <span class="course-meta-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                  Финальная практика + фидбек
+                </span>
+              </div>
+              <p>Отдельный курс, посвящённый углублённой работе с IFS. Участники проходят весь материал модулей заново на более глубоком уровне, с акцентом на практику, интеграцию и развитие навыка.</p>
+              <ul class="course-topics">
+                <li>IFS Model — 3 Paradigms</li>
+                <li>Parts Are People</li>
+                <li>Six F's</li>
+                <li>Protectors</li>
+                <li>First Steps</li>
+                <li>BeFriending</li>
+                <li>Three Messages</li>
+                <li>IFS Protocol</li>
+                <li>Two Methods</li>
+                <li>Three-Group System</li>
+                <li>Self-like Parts</li>
+                <li>Polarizations</li>
+                <li>Repeat Unburdening</li>
+                <li>Legacy Burdens</li>
+              </ul>
+              <div class="course-what-it-means">
+                <strong>Что значит «прошёл More Self»</strong>
+                19 встреч с Гэтри Сайеном на протяжении ~7 месяцев, финальная практическая работа и развёрнутая обратная связь. Выпускник глубоко владеет методом и имеет устойчивый практический опыт.
+              </div>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container container--narrow">
+      <p>IFS Academy &copy; 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
+      document.querySelectorAll('.reveal').forEach(function (el) {
+        observer.observe(el);
+        var rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add('visible');
+      });
+    })();
+
+    (function () {
+      var buttons = document.querySelectorAll('.filter-btn');
+      var cards = document.querySelectorAll('.grad-card');
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          buttons.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          var filter = btn.getAttribute('data-filter');
+          cards.forEach(function (card) {
+            if (filter === 'all') {
+              card.style.display = '';
+            } else if (filter === 'accepting') {
+              card.style.display = card.getAttribute('data-accepting') === 'yes' ? '' : 'none';
+            } else {
+              var courses = card.getAttribute('data-courses') || '';
+              card.style.display = courses.indexOf(filter) !== -1 ? '' : 'none';
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
